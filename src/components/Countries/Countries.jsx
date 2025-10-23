@@ -7,8 +7,8 @@ import './Countries.css'
 const Countries = ({countriesPromise}) => {
     const [visitedCountries, setVisitedCountries] = useState([]);
     const handlevisitedCountries=(country)=>{
-        console.log('clicked',country)
-
+       const newvisitedCountries = [...visitedCountries, country];
+       setVisitedCountries(newvisitedCountries);
     }
     const countriesData = use(countriesPromise);
     const countries = countriesData.countries
@@ -18,7 +18,12 @@ const Countries = ({countriesPromise}) => {
     return (
         <div >
             <h1>Welcome to country:{countries.length}</h1>
-            <h3>Total Countries visited: </h3>
+            <h3>Total Countries visited: {visitedCountries.length} </h3>
+            <ol>
+                {
+                    visitedCountries.map(country=> <li>{country.name.common}</li>)
+                }
+            </ol>
            <div className="countries">
              {
                 countries.map(country=><Country country={country} handlevisitedCountries={handlevisitedCountries} ></Country>)
